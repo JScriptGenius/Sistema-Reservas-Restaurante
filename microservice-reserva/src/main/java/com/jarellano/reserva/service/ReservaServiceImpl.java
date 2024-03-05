@@ -1,18 +1,20 @@
 package com.jarellano.reserva.service;
 
 import com.jarellano.reserva.entity.Reserva;
-import com.jarellano.reserva.persistence.ReservaRepository;
+import com.jarellano.reserva.persistence.IReservaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservaServiceImpl implements IReservaService {
-    private final ReservaRepository reservaRepository;
 
-    public ReservaServiceImpl(ReservaRepository reservaRepository) {
-        this.reservaRepository = reservaRepository;
-    }
+    @Autowired
+    private IReservaRepository reservaRepository;
 
     @Override
     public Reserva generarReserva(Reserva reserva) {
@@ -21,18 +23,17 @@ public class ReservaServiceImpl implements IReservaService {
 
     @Override
     public void actualizarEstadoReserva(Long idReserva, String estado) {
-        Reserva reserva = reservaRepository.findById(idReserva).orElse(null);
-        if (reserva != null) {
-            reserva.setEstado(estado);
-            reservaRepository.save(reserva);
+        if (idReserva != null) {
+            reservaRepository.actualizarEstadoReserva(idReserva, estado);
         }
     }
 
     @Override
-    public void editarReserva(Long idReserva, LocalDateTime nuevaFecha) {
-        Reserva reserva = reservaRepository.findById(idReserva).orElse(null);
+    public void editarReserva(Long idReserva, Reserva reserva) {
+        Reserva reservaBD = reservaRepository.findById(idReserva).orElseThrow();
         if (reserva != null) {
-            reserva.setFecha(nuevaFecha);
+            reservaBD.setFecha(reserva.getFecha());
+            reservaBD.setHora(reserva.getHora());
             reservaRepository.save(reserva);
         }
     }
@@ -48,22 +49,22 @@ public class ReservaServiceImpl implements IReservaService {
     }
 
     @Override
-    public Reserva buscarReservaPorId(Long idReserva) {
-        return reservaRepository.findById(idReserva).orElse(null);
+    public Optional<Reserva> buscarReservaPorId(Long idReserva) {
+        return reservaRepository.findById(idReserva);
     }
 
     @Override
-    public List<Reserva> buscarReservaPorIdCliente(Long idCliente) {
-        return reservaRepository.findByIdCliente(idCliente);
+    public List<Reserva> buscarReservasPorIdCliente(Long idCliente) {
+        return reservaRepository.findAllReservasByIdCLiente(idCliente);
     }
 
     @Override
-    public List<Reserva> buscarReservaPorIdMesa(Long idMesa) {
-        return reservaRepository.findByIdMesa(idMesa);
+    public List<Reserva> buscarReservasPorIdMesa(Long idMesa) {
+        return reservaRepository.findAllReservasByIdMesa(idMesa);
     }
 
     @Override
-    public List<Reserva> obtenerReservaPorFechaYHora(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-        return reservaRepository.findByFechaBetween(fechaInicio, fechaFin);
+    public List<Reserva> obtenerTodasLasReservasDeHoy(LocalDate fecha) {
+        return reservaRepository.obtenerTodasLasReservasDeHoy(fecha);
     }
 }

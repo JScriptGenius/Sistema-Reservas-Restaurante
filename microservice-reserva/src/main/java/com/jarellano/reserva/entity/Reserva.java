@@ -2,7 +2,7 @@ package com.jarellano.reserva.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +17,8 @@ public class Reserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReserva;
-    private LocalDateTime fecha;
+    private LocalDate fecha;
+    private String hora;
 
     @Column(name = "id_mesa")
     private Long idMesa;
