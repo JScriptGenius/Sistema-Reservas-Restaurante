@@ -1,0 +1,25 @@
+server:
+  port: 9085
+
+spring:
+  application:
+    name: msvc-mesa
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;databaseName=bd_msvc_cliente
+    username: Jhosep
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: SQL_SERVER
+    database-platform: org.hibernate.dialect.SQLServerDialect
+  config:
+    import: optional:configserver:http://localhost:8888
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
