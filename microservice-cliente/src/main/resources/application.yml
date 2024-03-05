@@ -3,17 +3,17 @@ server:
 
 spring:
   application:
-    name: msvc-mesa
+    name: msvc-cliente
   datasource:
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;databaseName=bd_msvc_cliente
-    username: Jhosep
-    password: 123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/bd_msvc_cliente
+    username: root
+    password:
   jpa:
     hibernate:
       ddl-auto: create
-    database: SQL_SERVER
-    database-platform: org.hibernate.dialect.SQLServerDialect
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
   config:
     import: optional:configserver:http://localhost:8888
 

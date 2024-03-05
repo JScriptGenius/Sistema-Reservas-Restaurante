@@ -1,4 +1,4 @@
-package com.jarellano.mesa.dto;
+package com.jarellano.cliente.dto;
 
 import lombok.*;
 import java.time.LocalDate;
@@ -15,4 +15,3 @@ public class ReservaDTO {
     private Long idCliente;
     private String estado;
 }
-
