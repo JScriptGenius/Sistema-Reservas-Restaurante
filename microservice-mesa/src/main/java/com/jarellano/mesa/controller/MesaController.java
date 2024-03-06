@@ -42,6 +42,12 @@ public class MesaController {
         return ResponseEntity.ok("¡Mesa eliminada!");
     }
 
+    @GetMapping("/actulaizarEstado/{idMesa}")
+    public ResponseEntity<?> actualizarEstadoMesa(@PathVariable Long idMesa, @RequestParam String estado) {
+        mesaService.actualizarEstadoMesa(estado, idMesa);
+        return ResponseEntity.ok("¡Estado de mesa Actualizado!");
+    }
+
     @GetMapping("/buscar-reservas-por-Mesa/{idMesa}")
     public ResponseEntity<?> findAllReservasByMesaId(@PathVariable Long idMesa) {
         return ResponseEntity.ok(mesaService.findAllReservasByIdMesa(idMesa));
