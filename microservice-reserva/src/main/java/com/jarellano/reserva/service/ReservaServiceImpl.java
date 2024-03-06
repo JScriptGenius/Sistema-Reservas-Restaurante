@@ -21,6 +21,7 @@ public class ReservaServiceImpl implements IReservaService {
         return reservaRepository.save(reserva);
     }
 
+
     @Override
     public void actualizarEstadoReserva(Long idReserva, String estado) {
         if (idReserva != null) {
@@ -31,10 +32,10 @@ public class ReservaServiceImpl implements IReservaService {
     @Override
     public void editarReserva(Long idReserva, Reserva reserva) {
         Reserva reservaBD = reservaRepository.findById(idReserva).orElseThrow();
-        if (reserva != null) {
+        if (reservaBD != null) {
             reservaBD.setFecha(reserva.getFecha());
             reservaBD.setHora(reserva.getHora());
-            reservaRepository.save(reserva);
+            reservaRepository.save(reservaBD);
         }
     }
 

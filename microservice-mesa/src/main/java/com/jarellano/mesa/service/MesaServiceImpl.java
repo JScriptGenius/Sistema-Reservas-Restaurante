@@ -40,7 +40,7 @@ public class MesaServiceImpl implements IMesaService {
         Mesa mesaBD = obtenerMesaPorId(idMesa).get();
         mesaBD.setCapacidad(mesa.getCapacidad());
         mesaBD.setNumero(mesa.getNumero());
-        mesaRepository.save(mesa);
+        mesaRepository.save(mesaBD);
     }
 
     @Override

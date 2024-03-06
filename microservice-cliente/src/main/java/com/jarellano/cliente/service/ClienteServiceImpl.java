@@ -32,7 +32,7 @@ public class ClienteServiceImpl implements IClienteService{
         clienteBD.setApellido(cliente.getApellido());
         clienteBD.setEmail(cliente.getEmail());
         clienteBD.setTelefono(cliente.getTelefono());
-        clienteRepository.save(cliente);
+        clienteRepository.save(clienteBD);
     }
 
     @Override
